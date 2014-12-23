@@ -1,6 +1,6 @@
 # WifiWizard
 
-Version 0.2.6
+Version 0.2.8
 
 This Phonegap plugin enables WiFi management from within Phonegap applications.
 
@@ -27,6 +27,7 @@ Run `phonegap plugin install https://github.com/parsonsmatt/WifiWizard.git`
 
 ### Changelog:
 
+* v0.2.8 - Fixes `connectNetwork` and `disconnectNetwork` when there is only one network configured.
 * v0.2.7 - Clobber WifiWizard.js automatically via Cordova plugin architecture
 * v0.2.6 - Added `isWifiEnabled`, `setWifiEnabled`
 * v0.2.5 - Fixes `getConnectedSSID` error handlers
