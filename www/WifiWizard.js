@@ -256,6 +256,17 @@ var WifiWizard = {
 			return;
 		}
 		cordova.exec(win, fail, 'WifiWizard', 'setWifiEnabled', [enabled]);
+	},
+
+	/**
+	 * Gets local IP address of the device in the connected WIFI network
+	 */
+	getIpAddress: function (win, fail) {
+		if (typeof win !== "function") {
+			console.log("getIpAddress first parameter must be a function to handle returned IP address.");
+			return;
+		}
+		cordova.exec(win, fail, 'WifiWizard', 'getIpAddress', []);
 	}
 };
 
