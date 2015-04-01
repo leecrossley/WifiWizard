@@ -238,7 +238,7 @@ var WifiWizard = {
 		}
 		cordova.exec(
 			function(result) {
-				win(!!result);
+				win(result === "1");
 			},
 			fail, 'WifiWizard', 'isWifiEnabled', []
 		);
