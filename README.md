@@ -1,6 +1,6 @@
 # WifiWizard
 
-Version 0.2.6
+Version 0.2.9
 
 This Phonegap plugin enables WiFi management from within Phonegap applications.
 
@@ -21,12 +21,15 @@ Run `phonegap plugin install https://github.com/parsonsmatt/WifiWizard.git`
 * `WifiWizard.listNetworks(listHandler, fail);` retrieves a list of the configured networks as an array of strings and passes them to the function listHandler.
 * `WifiWizard.startScan(listHandler, fail);` start WiFi scanning.
 * `WifiWizard.getScanResults(listHandler, fail);` retrieves a list of the available networks as an array of strings and passes them to the function listHandler.
-* `WifiWizard.getConnectedSSID(ssidHandler, fail);` retrieves the current SSID and passes it to ssidHandler.
+* `WifiWizard.getCurrentSSID(ssidHandler, fail);` retrieves the current SSID and passes it to ssidHandler.
 * `WifiWizard.isWifiEnabled(win, fail);` retrieves the current wifi status and passes `true` or `false` to the handler.
 * `WifiWizard.setWifiEnabled(enabled, win, fail);` set wifi status.
+* `WifiWizard.getIpAddress(win, fail);` retrieves current IP address.
 
 ### Changelog:
 
+* v0.2.9 - Added `getIpAddress` method.
+* v0.2.8 - Fixes `connectNetwork` and `disconnectNetwork` when there is only one network configured.
 * v0.2.7 - Clobber WifiWizard.js automatically via Cordova plugin architecture
 * v0.2.6 - Added `isWifiEnabled`, `setWifiEnabled`
 * v0.2.5 - Fixes `getConnectedSSID` error handlers

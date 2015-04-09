@@ -30,6 +30,7 @@ public class WifiWizard extends CordovaPlugin {
 	private static final String IS_WIFI_ENABLED = "isWifiEnabled";
 	private static final String SET_WIFI_ENABLED = "setWifiEnabled";
 	private static final String TAG = "WifiWizard";
+	private static final String GET_IP_ADDRESS = "getIpAddress";
 
 	private WifiManager wifiManager;
 	private CallbackContext callbackContext;
@@ -71,6 +72,8 @@ public class WifiWizard extends CordovaPlugin {
 				return this.disconnect(callbackContext);
 		} else if(action.equals(GET_CONNECTED_SSID)) {
 				return this.getConnectedSSID(callbackContext);
+		} else if(action.equals(GET_IP_ADDRESS)) {
+				return this.getIpAddress(callbackContext);
 		} else {
 			callbackContext.error("Incorrect action parameter: " + action);
 		}
@@ -237,7 +240,7 @@ public class WifiWizard extends CordovaPlugin {
 
 		int networkIdToConnect = ssidToNetworkId(ssidToConnect);
 
-		if (networkIdToConnect > 0) {
+		if (networkIdToConnect >= 0) {
 			// We disable the network before connecting, because if this was the last connection before
 			// a disconnect(), this will not reconnect.
 			wifiManager.disableNetwork(networkIdToConnect);
@@ -279,7 +282,7 @@ public class WifiWizard extends CordovaPlugin {
 
 		int networkIdToDisconnect = ssidToNetworkId(ssidToDisconnect);
 
-		if (networkIdToDisconnect > 0) {
+		if (networkIdToDisconnect >= 0) {
 			wifiManager.disableNetwork(networkIdToDisconnect);
 			callbackContext.success("Network " + ssidToDisconnect + " disconnected!");
 			return true;
@@ -477,4 +480,26 @@ public class WifiWizard extends CordovaPlugin {
 		return false;
 	}
 
+	/**
+	 *	This method gets local IP address of the device in the connected WIFI network
+	 */
+	private boolean getIpAddress(CallbackContext callbackContext) {
+		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+		int ip = wifiInfo.getIpAddress();
+		if (ip == 0) {
+			callbackContext.error("Get IP Address failed!");
+			return false;
+		}
+
+		String ipAddr = String.format(
+			"%d.%d.%d.%d",
+			(ip & 0xff),
+			(ip >> 8 & 0xff),
+			(ip >> 16 & 0xff),
+			(ip >> 24 & 0xff)
+		);
+
+		callbackContext.success(ipAddr);
+		return true;
+	}
 }
